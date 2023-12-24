@@ -1,0 +1,91 @@
+# depslib dependency file v1.0
+1703347725 source:c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\main.c
+	"Libraries/Modules/Modules.h"
+	"Libraries/Modules/Algo-Tp.h"
+	"Libraries/Modules/Modification.h"
+	"Libraries/Modules/conio2.h"
+	"Libraries/Modules/guiTools.h"
+	"Libraries/Modules/gui.h"
+	<string.h>
+	<stdbool.h>
+	<windows.h>
+	<time.h>
+
+1703343797 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\modules\modules.h
+	"../TP2.h"
+	"../TOF.h"
+	"../Indexs.h"
+	<time.h>
+	"Affichage.h"
+	<conio.h>
+	"conio2.h"
+	"Modules.h"
+	"../../Data/Data.h"
+
+1702118599 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\tp2.h
+	"TOF.h"
+	"../Data/Data.h"
+	"Indexs.h"
+
+1702023442 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\tof.h
+	<stdbool.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<string.h>
+	<string.h>
+	"TP2.h"
+
+1702118586 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\data\data.h
+	<stdbool.h>
+	<stdio.h>
+	<stdlib.h>
+	<stdarg.h>
+	<string.h>
+
+1703344235 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\indexs.h
+	"TP2.h"
+	"TOF.h"
+
+1702150088 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\modules\affichage.h
+	"Modules.h"
+
+1703347796 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\modules\algo-tp.h
+	"Modules.h"
+	"../LLC.h"
+
+1702139944 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\llc.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<string.h>
+
+1703341750 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\modules\modification.h
+	"Algo-Tp.h"
+
+1698883501 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\modules\conio2.h
+	<conio.h>
+	<windows.h>
+
+1702650492 source:c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\conio2.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<string.h>
+	"Libraries/Modules/conio2.h"
+
+1698883501 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\modules\guitools.h
+	<stdbool.h>
+	"conio2.h"
+
+1702652364 source:c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\guitools.c
+	<stdio.h>
+	<stdbool.h>
+	<string.h>
+	<windows.h>
+	<conio.h>
+	"Libraries/Modules/conio2.h"
+	"Libraries/Modules/guiTools.h"
+
+1703348270 c:\users\abcd\documents\esi\2cp\sfsd\programme en c\tpp\libraries\modules\gui.h
+

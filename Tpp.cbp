@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Tpp" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Tpp" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Tpp" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Data/Data.h" />
+		<Unit filename="Libraries/Indexs.h" />
+		<Unit filename="Libraries/LLC.h" />
+		<Unit filename="Libraries/Modules/Affichage.h" />
+		<Unit filename="Libraries/Modules/Algo-Tp.h" />
+		<Unit filename="Libraries/Modules/Menus.h" />
+		<Unit filename="Libraries/Modules/Modification.h" />
+		<Unit filename="Libraries/Modules/Modules.h" />
+		<Unit filename="Libraries/Modules/conio2.h" />
+		<Unit filename="Libraries/Modules/gui.h" />
+		<Unit filename="Libraries/Modules/guiTools.h" />
+		<Unit filename="Libraries/TOF.h" />
+		<Unit filename="Libraries/TP2.h" />
+		<Unit filename="conio2.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gui.c">
+			<Option compilerVar="CC" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="guiTools.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
