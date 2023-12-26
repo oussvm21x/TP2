@@ -6,7 +6,12 @@
 #define TP2_INDEXS_H
 #include "TP2.h"
 #include "TOF.h"
+#include "LLC.h"
 #define MAX_I 200000
+
+//INDEX PRIMAIRE
+
+
 typedef struct {
     int cle ;
     int i ;
@@ -35,8 +40,11 @@ int Rech_Dicho(int cle, bool *trouve, int *i, Tindex *TableIndex) {
     int bi = 0;
     while( (bi <= bs ) & (*trouve)==false ) {
         (*i) = (bs+bi) / 2;
-        if ( (*TableIndex).tab[(*i)].cle == cle)
-            *trouve = true;
+        if ( ((*TableIndex).tab[(*i)].cle == cle)  &&  ((*TableIndex).tab[(*i)].eff != true)  ){
+            (*trouve) = true;
+
+        }
+
         else {
             if ( (*TableIndex).tab[(*i)].cle > cle)
                 bs = (*i) - 1;
@@ -71,6 +79,7 @@ int index_Telechargement( char filename[32] , Tindex *TableIndex) { //Cette fonc
             (*TableIndex).tab[k].cle = buf.tab[j].cle ;
             (*TableIndex).tab[k].i = buf.tab[j].i ;
             (*TableIndex).tab[k].j = buf.tab[j].j ;
+            (*TableIndex).tab[k].eff = buf.tab[j].supprime ;
             j++ ;
             k++ ;
         }
@@ -98,6 +107,8 @@ int index_sauvgarde (char filename[32] , Tindex *TableIndex) { //Cette fonction 
             buf.tab[j].cle = (*TableIndex).tab[k].cle ;
             buf.tab[j].i = (*TableIndex).tab[k].i;
             buf.tab[j].j = (*TableIndex).tab[k].j;
+            buf.tab[j].supprime = (*TableIndex).tab[k].eff ;
+
             j++ ;
         }
         else {
@@ -134,6 +145,18 @@ int index_suppression(int cle , Tindex *TableIndex){
     return 0 ;
 }
 
+int index_suppression_logique(int cle , Tindex *TableIndex){
+    int i  ;
+    bool trouve ;
+    Rech_Dicho(cle , &trouve , &i , TableIndex ) ;
+    if(trouve == true ) {
+        (*TableIndex).tab[i].eff = true ;
+
+    }
+    return 0 ;
+
+}
+
 int index_Insertion(int cle , int i ,int j , Tindex *TableIndex) {
     bool trouve;
     int k , p;
@@ -158,7 +181,61 @@ int index_Insertion(int cle , int i ,int j , Tindex *TableIndex) {
 }
 
 
-//SAUVGARDE //TELECHARGEMENT /
-//SUPRESSION //INSERTION /
+//INDEX SECONDAIRE ;
+
+
+typedef struct {
+    file fifo;
+}Tcouple2;
+
+typedef struct {
+    Tcouple2 tab[7] ;
+}Tindex2;
+
+extern int index2_init(Tindex2 *Tab) ;
+extern int index2_generation(char filename[32] , Tindex2 *Tab);
+extern int index2_Rech(int region, file *Tete, Tindex2 *Tab);
+extern int index2_suppression(int region , int mat ,Tindex2 *Tab);
+extern int index2_Insertion(int region , int mat ,Tindex2 *Tab);
+
+
+//index2 init
+    int index2_init(Tindex2 *Tab){
+    for(int i = 0 ; i < 6 ; i++){
+        initfile(&((*Tab).tab[i].fifo)) ;
+    }
+    return 0 ;
+}
+
+int index2_generation(char filename[32] , Tindex2 *Tab) {
+    index2_init(Tab) ;
+    int i , j , rm ;
+    TOF_B File ;
+    TBBuffer buf ;
+    TB_Ouvrire(&File , filename , 'A');
+    for(i=1 ; i <= TB_Entete(&File , 1) ; i++){
+        TB_LireDir(&File , i , &buf) ;
+        for(j=0 ; j <= buf.nb ; j++){
+            if(buf.tab[j].eff != true) {
+
+                rm = (int)buf.tab[j].fa[0] - 48 - 1;
+                insertionOrd(&((*Tab).tab[rm].fifo ) ,buf.tab[j].mat ) ;
+            }
+        }
+    }
+}
+
+int index2_Rech(int region, file *Tete, Tindex2 *Tab){
+    (*Tete) = ((*Tab).tab[region-1].fifo) ;
+    return 0 ;
+}
+
+int index2_Insertion(int region , int mat ,Tindex2 *Tab){
+    insertionOrd(&((*Tab).tab[region-1].fifo ) ,mat ) ;
+
+}
+int index2_suppression(int region , int mat ,Tindex2 *Tab){
+    suppression(&((*Tab).tab[region-1].fifo ) ,mat ) ;
+}
 
 #endif //TP2_INDEXS_H

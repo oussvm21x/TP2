@@ -8,10 +8,17 @@
 #define MAX 1024
 #include "TOF.h"
 #include "../Data/Data.h"
-#include "Indexs.h"
 
-extern const char *FILENAME_DATA = "PERSONNEL-ANP_DZ.dat" ;
-extern const char *FILENAME_INDEX = "MATRICULE_INDEX.idx" ;
+extern char *FILENAME_DATA = "PERSONNEL-ANP_DZ.dat" ;
+extern char *FILENAME_DATA_2 = "PERSONNEL-ANP_DZ_2.dat" ;
+extern char *FILENAME_DATA_RM1 = "PERSONNEL-ANP_DZ_RM1.dat" ;
+extern char *FILENAME_DATA_RM2 = "PERSONNEL-ANP_DZ_RM2.dat" ;
+extern char *FILENAME_DATA_RM3 = "PERSONNEL-ANP_DZ_RM3.dat" ;
+extern char *FILENAME_DATA_RM4 = "PERSONNEL-ANP_DZ_RM4.dat" ;
+extern char *FILENAME_DATA_RM5 = "PERSONNEL-ANP_DZ_RM5.dat" ;
+extern char *FILENAME_DATA_RM6 = "PERSONNEL-ANP_DZ_RM6.dat" ;
+extern char *FILENAME_INDEX = "MATRICULE_INDEX.idx" ;
+
 
 typedef struct {
     int mat; //MATRICULE
@@ -36,6 +43,7 @@ typedef struct {
 typedef struct {
     int numBlocs;
     int cmptInsertion;
+    int SuppLogique ;
 } TBEntete;
 
 typedef struct {
@@ -53,6 +61,12 @@ int TB_Aff_Entete(TOF_B *File , int i , int n) {
         (File->entete.cmptInsertion) = n ;
         fseek(File->f , sizeof(int) ,SEEK_SET ) ;
         fwrite(&File->entete.cmptInsertion ,1 , sizeof(int) , File->f );
+    }
+    else if (i == 3) {
+
+        (File->entete.SuppLogique) = n ;
+        fseek(File->f , 2*sizeof(int) ,SEEK_SET ) ;
+        fwrite(&File->entete.SuppLogique ,1 , sizeof(int) , File->f );
     }
     else {
         printf("The input is invalid") ;
@@ -76,7 +90,8 @@ int TB_Ouvrire(TOF_B *File , char fileName[32] ,  char mode ) {
         else if(mode == 'N' || mode == 'n') {
             (*File).f = fopen(fileName , "wb") ;
             TB_Aff_Entete(File , 1 , 1) ;
-            TB_Aff_Entete(File , 2 , 1) ;
+            TB_Aff_Entete(File , 2 , 0) ;
+            TB_Aff_Entete(File , 3 , 0) ;
         }
     }
     if ((*File).f == NULL){
@@ -118,6 +133,11 @@ int TB_Entete(TOF_B *File ,int i) {
         fseek(File->f , sizeof(int) ,SEEK_SET ) ;
         fread(&File->entete.cmptInsertion, sizeof(int), 1, File->f);
         return File->entete.cmptInsertion ;
+    }
+    else if (i == 3) {
+        fseek(File->f , 2*sizeof(int) ,SEEK_SET ) ;
+        fread(&File->entete.SuppLogique, sizeof(int), 1, File->f);
+        return File->entete.SuppLogique ;
     }
     else {
         printf("The input is invalid") ;
@@ -164,12 +184,14 @@ int TB_Recherch(char filename[32] , int cle , bool *Trouve ,int *i , int *j) {
     (*Trouve) = false ;
     //MAIN LOOP
     while ((*i) <= Nb && (*Trouve) == false) {
+
         TB_LireDir(&File , (*i) , &buf) ;
-        (*j) = 1 ;
+        (*j) = 0 ;
         while((*j) <= buf.nb && (*Trouve)==false) {
-            if(buf.tab[(*j)].mat == cle )
+            if(buf.tab[(*j)].mat == cle && buf.tab[(*j)].eff != true )
                 (*Trouve) = true ;
-            (*j)++;
+            else
+                (*j)++;
         }
         if ( (*Trouve) == false )
             (*i)++ ;
@@ -180,6 +202,7 @@ int TB_Recherch(char filename[32] , int cle , bool *Trouve ,int *i , int *j) {
 
 /*______________Insertion______________*/
 int TB_Insertion(char filename[32], TBenrg e ) {
+
     //Declaration
     TOF_B File ;
     TBBuffer buf ;
@@ -187,6 +210,7 @@ int TB_Insertion(char filename[32], TBenrg e ) {
     int i , j , Nb ;
     //Recherche
     TB_Recherch(filename , e.mat , &Trouve , &i , &j ) ;
+    printf("KIYAH");
     if(Trouve == false ) {
         //Start Insertion
         TB_Ouvrire(&File,filename , 'A') ;
@@ -255,6 +279,67 @@ int TB_Supression (char filename[32] , TBenrg e) {
 
     }
     return 0 ;
+}
+
+int TB_Supression_Logique(char filename[32] , TBenrg e){
+    int i , j , Nb;
+    bool trouve ;
+    TOF_B File ;
+    TBBuffer buf;
+    TB_Recherch(filename , e.mat , &trouve , &i , &j) ;
+    if(trouve) {
+        TB_Ouvrire(&File,filename,'A') ;
+        Nb = TB_Entete(&File , 1) ;
+        TB_LireDir(&File , i , &buf) ;
+        buf.tab[j].eff = true ;
+        TB_EcrireDir(&File , i , &buf) ;
+        TB_Aff_Entete(&File , 3 , TB_Entete(&File , 3) + 1 )  ;
+        TB_Fermer(&File) ;
+
+    }
+    else
+        printf("N'exist pas \n");
+    return 0 ;
+}
+
+int TB_Reorganisation(char filename1[32] , char filename2[32] ){
+    int i1 , j1 ,i2 , j2 , Nb1 , Nb2;
+    bool trouve ;
+    TOF_B File1 , File2 ;
+    TBBuffer buf1 , buf2 ;
+    TB_Ouvrire(&File1,filename1,'A') ;
+    TB_Ouvrire(&File2,filename2,'N') ;
+    Nb1 = TB_Entete(&File1 , 1) ;
+    Nb2= 1 ;
+    i1 = 1 ;
+    i2 = 1 ;
+    j2 = 0 ;
+    while( i1 <= Nb1 ){
+        TB_LireDir(&File1 , i1 , &buf1) ;
+        for (j1 = 0 ; j1 <= buf1.nb ; j1++ ){
+            if( buf1.tab[j1].eff != true ){
+                buf2.tab[j2] = buf1.tab[j1] ;
+                j2++ ;
+                if(j2 > 1024){
+                    buf2.nb = j2-1 ;
+                    TB_EcrireDir(&File2 , i2 ,&buf2 ) ;
+                    Nb2++ ;
+                    i2++ ;
+                    j2 = 0 ;
+                }
+            }
+        }
+
+        i1++ ;
+    }
+    buf2.nb = j2-1 ;
+    TB_EcrireDir(&File2 , i2 ,&buf2 ) ;
+    TB_Aff_Entete(&File2 ,1 ,Nb2 );
+    TB_Aff_Entete(&File2 ,2 ,TB_Entete(&File1 , 2) - TB_Entete(&File1 , 3) );
+    TB_Aff_Entete(&File2 ,3 , 0 );
+    TB_Fermer(&File1) ;
+    TB_Fermer(&File2) ;
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

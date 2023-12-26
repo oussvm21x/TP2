@@ -9,7 +9,6 @@
 #include <stdarg.h>
 #include <string.h>
 #include <string.h>
-#include "TP2.h"
 
 /*DECLARATION DE LA STRECTURE TOF*/
 typedef struct {

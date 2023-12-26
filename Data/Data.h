@@ -46,13 +46,13 @@ struct Grade grades[] = {
 };
 
 char forceArmees[][50] = {
-        "Forces Aeriennes",
-        "Forces Navales",
-        "Forces de Defense Aerienne du Territoire",
-        "Gendarmerie Nationale",
-        "Garde Republicaine",
-        "Sante Militaire",
-        "Departement du renseignement et de la securite,"
+        "1-Forces Aeriennes",
+        "2-Forces Navales",
+        "3-Forces de Defense Aerienne du Territoire",
+        "4-Gendarmerie Nationale",
+        "5-Garde Republicaine",
+        "6-Sante Militaire",
+        "7-Departement du renseignement et de la securite,"
 };
 
 struct RegionMilitaire {

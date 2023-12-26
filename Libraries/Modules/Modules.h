@@ -318,6 +318,7 @@ int Generation_Soldat_Manuellement(TBenrg *Soldat) {
     sprintf((Soldat->Grade) , "%s" , lire_grade());
     sprintf((Soldat->fa) , "%s" , lire_force()) ;
     sprintf((Soldat->rm) , "%s" , lire_rm()) ;
+    Soldat->eff = false ;
 
 
     return 0 ;
@@ -336,6 +337,7 @@ int Generation_Soldat(TBenrg *Soldat){
     sprintf((Soldat->Grade) , "%s" , gen_grade());
     sprintf((Soldat->fa) , "%s" , gen_force()) ;
     sprintf((Soldat->rm) , "%s" , gen_rm()) ;
+    Soldat->eff = false ;
 
 
 }
@@ -413,6 +415,7 @@ int Generation_Anp(int n , char filename[32] ,Tindex *Tab ) { // CETTE FONTION C
     TB_EcrireDir(&File , i , &buf) ;
     TB_Aff_Entete(&File , 1 , i) ;
     TB_Aff_Entete(&File , 2 , n) ;
+    TB_Aff_Entete(&File , 3 , 0) ;
     TB_Fermer(&File) ;
     index_sauvgarde(FILENAME_INDEX , Tab ) ;
     return 0 ;

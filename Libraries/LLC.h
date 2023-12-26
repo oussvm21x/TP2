@@ -57,9 +57,11 @@ void Enfiler ( file *f , int x){
 }
 
 void Defiler ( file *f , int *x ){
+
     Efile temp ;
     temp = (*f).tete ;
     *x = value(temp) ;
+
     if ( (*f).tete == (*f).Queue )
     {
         (*f).tete = NULL ;
@@ -68,6 +70,7 @@ void Defiler ( file *f , int *x ){
     else {
         (*f).tete = next((*f).tete);
         free(temp);
+
     }
 
 }
@@ -98,9 +101,11 @@ void CreerFileAlea ( file *f , int n ){
     }
 }
 void Afficher_list ( file *f ) {
+
     file R ;
     initfile(&R);
     int x , i= 1 ;
+
     while ( !fileVide(*f) ){
         Defiler(f , &x) ;
         printf("E[%d]: %d  ",i++ , x) ;
@@ -111,6 +116,7 @@ void Afficher_list ( file *f ) {
         Enfiler(f , x);
     }
     printf("\n");
+
 }
 
 bool recherche ( file f , int n ){

@@ -16,11 +16,9 @@
     TOF_B File ;
     file Tete ;
 
-
-
 int main() {
-    //Generation_Anp(1000 , FILENAME_DATA , &Tab);
-    ProgrammePrincipale();
+    //Fragmenation_Anp(FILENAME_DATA , FILENAME_DATA_RM1 , FILENAME_DATA_RM2 , FILENAME_DATA_RM3 , FILENAME_DATA_RM4 , FILENAME_DATA_RM5 , FILENAME_DATA_RM6 );
+    Affichage_Anp(FILENAME_DATA_RM6);
     return 0;
 }
 

@@ -32,11 +32,14 @@ int Affichage_Anp(char filename[32]) {
         TB_LireDir(&File , 1 , &buf) ;
         j = 0 ;
         while (j <= buf.nb ) {
-            Afficher_Soldat(buf.tab[j]);
-            j++;
+                if(buf.tab[j].eff != true ){
+                    Afficher_Soldat(buf.tab[j]);
+                }
+                j++;
+            }
+            i++ ;
         }
-        i++ ;
-    }
+
     TB_Fermer(&File) ;
     return 0 ;
 
@@ -57,7 +60,7 @@ void Affichage_grades(){
 void Affichage_fa(){
     int i=0 ;
     for(i=0 ; i<7 ;i++)
-        printf("%i-%s \n" ,i+1, forceArmees[i]);
+        printf("%s \n" , forceArmees[i]);
 }
 void Affichage_rm(){
     int i=0 ;
