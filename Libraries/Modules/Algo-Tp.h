@@ -112,7 +112,7 @@ int Suppression_Logique_Anp(char filename[32] , TBenrg e , Tindex *Tab){
 }
 
 
-int Suppression_Les_Soldats_par_fa(char filename[32] , Tindex *Tab , Tindex2 *Tab2){
+int Suppression_Des_Soldats_par_fa(char filename[32] , Tindex *Tab , Tindex2 *Tab2){
     //NOTE SUR L'UTULISATION :
     // TU DOIT DABORD GENERER L'INDEX 2 ,
     // TELECHARGER L'INDEX 2

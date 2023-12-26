@@ -13,12 +13,24 @@
 
     TBenrg e ;
     Tindex Tab ;
+    Tindex2 Tab2;
     TOF_B File ;
     file Tete ;
 
 int main() {
-    //Fragmenation_Anp(FILENAME_DATA , FILENAME_DATA_RM1 , FILENAME_DATA_RM2 , FILENAME_DATA_RM3 , FILENAME_DATA_RM4 , FILENAME_DATA_RM5 , FILENAME_DATA_RM6 );
+    /*
+    // HADI KIFAH NKHDMO B HAD TWO NEW FUNCTIONS
+    // ZIDIHOM FL MENU PS 3JZZZZZZT
+    // SINON ANA KOLSH YMCHI ENDI , TRY AND TELL ME
+    index_Telechargement(FILENAME_INDEX ,&Tab );
+    Fragmenation_Anp(FILENAME_DATA , FILENAME_DATA_RM1 , FILENAME_DATA_RM2 , FILENAME_DATA_RM3 , FILENAME_DATA_RM4 , FILENAME_DATA_RM5 , FILENAME_DATA_RM6 );
     Affichage_Anp(FILENAME_DATA_RM6);
+    index2_generation(FILENAME_DATA , &Tab2);
+    Suppression_Des_Soldats_par_fa(FILENAME_DATA , &Tab , &Tab2);
+    index_sauvgarde(FILENAME_INDEX , &Tab);
+    */
+
+
     return 0;
 }
 
